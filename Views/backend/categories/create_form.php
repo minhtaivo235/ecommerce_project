@@ -1,3 +1,6 @@
+<?php
+require_once 'Views/backend/partitions/header.php';
+?>
 <div class="form-w3layouts">
     <!-- page start-->
     <!-- page start-->
@@ -23,3 +26,6 @@
         </div>
     </div>
 </div>
+<?php
+require_once 'Views/backend/partitions/footer.php';
+?>

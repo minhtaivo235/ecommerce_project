@@ -2,20 +2,12 @@
 require_once './Core/Database.php';
 require_once './Models/BaseModel.php';
 require_once './Controllers/BaseController.php';
-
+session_start();
 $controllerName = ucfirst((strtolower($_REQUEST['controller'] ?? 'Admin')) . 'Controller');
 $actioneName = $_REQUEST['action'] ?? 'index';
 require "./Controllers/${controllerName}.php";
 $controllerObject = new $controllerName;
+$controllerObject->$actioneName();
 
-require 'Views/backend/partitions/header.php';
-?>
 
-<section class="wrapper">
-    <?php
-    $controllerObject->$actioneName();
-    ?>
-</section>
-<?php
-require 'Views/backend/partitions/footer.php';
-?>
+

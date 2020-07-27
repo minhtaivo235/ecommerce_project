@@ -14,9 +14,23 @@ class CategoryController extends BaseController
     }
 
     public function show(){
-        $id = $_GET['id'];
+        $id = $_REQUEST['id'];
         $category = $this->categoryModel->findById($id);
-        return $this->view('frontend.categories.show',['category' => $category]);
+//        echo '<pre>';
+//        print_r($category);
+//        die();
+        return $this->view('backend.categories.update',['category' => $category]);
+    }
+    public function update(){
+        $id = $_GET['id'];
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $date = date('Y-m-d H:i:s');
+        $data = [
+            'name' => $_POST['name'],
+            'updated_at' => $date
+        ];
+        $this->categoryModel->updateData($id, $data);
+        return $this->get_list();
     }
 
     public function get_list(){

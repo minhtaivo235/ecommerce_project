@@ -2,6 +2,7 @@
 require_once './Core/Database.php';
 require_once './Models/BaseModel.php';
 require_once './Controllers/BaseController.php';
+session_start();
 
 //require_once "./Controllers/HomeController.php";
 //$controllerObject = new HomeController();

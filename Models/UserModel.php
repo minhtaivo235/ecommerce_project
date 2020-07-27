@@ -16,4 +16,9 @@ class UserModel extends BaseModel{
     public function updateData($id, $data){
         return $this->update(self::TABLE_NAME, $id, $data);
     }
+    public function check_login($mail, $password){
+        $sql = "SELECT * FROM USERS WHERE email = '${mail}' && password = ${password}";
+        $data = $this->_query($sql);
+        return mysqli_fetch_assoc($data);
+    }
 }

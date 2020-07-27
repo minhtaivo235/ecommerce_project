@@ -1,3 +1,6 @@
+<?php
+require_once 'Views/backend/partitions/header.php';
+?>
 <section class="wrapper">
     <div class="table-agile-info">
         <div class="panel panel-default">
@@ -48,8 +51,12 @@
                         <td><span class="text-ellipsis"><?php echo $category['created_at'] ?></span></td>
                         <td><span class="text-ellipsis"><?php echo $category['updated_at'] ?></span></td>
                         <td>
-                            <a href="admin.php?controller=category&action=create" class="btn btn-outline-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
-                            <a href="" class="btn btn-outline-danger btn-sm"><i class="fa fa-times-circle-o"></i></a>
+                            <a href="admin.php?controller=category&action=show&id=<?php echo $category['id'] ?>" class="active styling-edit" ui-toggle-class="">
+                                <i class="fa fa-pencil-square-o text-success text-active"></i>
+                            </a>
+                            <a onclick="return confirm('Bạn có chắc muốn xóa?')" href="admin.php?controller=category&action=delete&id=<?php $category['id'] ?>" class="active styling-edit" ui-toggle-class="">
+                                <i class="fa fa-times text-danger text"></i>
+                            </a>
                         </td>
                     </tr>
                     <?php } ?>
@@ -77,3 +84,6 @@
         </div>
     </div>
 </section>
+<?php
+require_once 'Views/backend/partitions/footer.php';
+?>

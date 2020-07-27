@@ -7,7 +7,7 @@ class CategoryModel extends BaseModel
         return $this->all(self::TABLE_NAME, $select, $orderBy, $limit);
     }
     public function findById($id){
-        return __METHOD__;
+        return $this->find(self::TABLE_NAME,$id);
     }
     public function deleteOne($id){
         return $this->delete(self::TABLE_NAME,$id);
