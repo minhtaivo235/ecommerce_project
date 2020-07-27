@@ -10,7 +10,7 @@ class CategoryController extends BaseController
 
     public function index(){
         $categories = $this->categoryModel->getAll();
-        return $this->view('frontend.categories.index',['categories' => $categories]);
+        return $this->view('backend.categories.show',['categories' => $categories]);
     }
 
     public function show(){
@@ -22,7 +22,7 @@ class CategoryController extends BaseController
         return $this->view('backend.categories.update',['category' => $category]);
     }
     public function update(){
-        $id = $_GET['id'];
+        $id = $_REQUEST['id'];
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $date = date('Y-m-d H:i:s');
         $data = [
@@ -30,11 +30,11 @@ class CategoryController extends BaseController
             'updated_at' => $date
         ];
         $this->categoryModel->updateData($id, $data);
-        return $this->get_list();
+        return header('Location: admin.php?controller=category');
     }
 
     public function get_list(){
-        $categories = $this->categoryModel->getAll();
+        $categories = $this->categoryModel->getAll(['*'],[],'0','3');
         return $this->view('backend.categories.show',['categories' => $categories]);
     }
 
@@ -51,7 +51,14 @@ class CategoryController extends BaseController
             'updated_at' => $date
         ];
         $this->categoryModel->store($data);
-        return $this->get_list();
+        return header('Location: admin.php?controller=category');
+    }
+
+    public function delete(){
+        $id = $_REQUEST['id'];
+
+        $this->categoryModel->deleteOne($id);
+        return header('Location: admin.php?controller=category');
     }
 
 }

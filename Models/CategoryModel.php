@@ -3,8 +3,8 @@
 class CategoryModel extends BaseModel
 {
     const TABLE_NAME = 'categories';
-    public function getAll($select = ['*'], $orderBy = [], $limit = 0){
-        return $this->all(self::TABLE_NAME, $select, $orderBy, $limit);
+    public function getAll( $select = ['*'], $orderBy = [] , $limit = '', $offset = ''){
+        return $this->all(self::TABLE_NAME, $select, $orderBy, $limit, $offset);
     }
     public function findById($id){
         return $this->find(self::TABLE_NAME,$id);

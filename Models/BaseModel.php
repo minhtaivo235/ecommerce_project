@@ -7,17 +7,21 @@ class BaseModel extends Database
     {
         $this->connect = $this->connect();
     }
-    public function all($table, $select = ['*'], $orderBy , $limit){
+    public function all($table, $select = ['*'], $orderBy = [] , $limit = '', $offset = ''){
         $column = implode(',', $select);
         $columnOrder = implode(' ', $orderBy);
-        if($columnOrder && $limit){
-            $sql = "Select ${column} from {$table} order by ${columnOrder} LIMIT ${limit} ";
-        }else if ($columnOrder){
+        if($columnOrder !== '' && $limit !== ''  && $offset !== ''){
+            $sql = "Select ${column} from {$table} order by ${columnOrder} LIMIT ${limit},${offset} ";
+
+        }else if ($columnOrder !== '' && $limit == ''  && $offset == ''){
             $sql = "Select ${column} from {$table} order by ${columnOrder}";
-        } else if ($limit){
-            $sql = "Select ${column} from {$table} LIMIT ${limit} ";
+
+        } else if ($columnOrder == '' && $limit !== ''  && $offset !== ''){
+            $sql = "Select ${column} from {$table} LIMIT ${limit},${offset} ";
+
         } else {
             $sql = "Select ${column} from {$table}";
+
         }
         $query = $this->_query($sql);
         $data = [];
@@ -25,6 +29,13 @@ class BaseModel extends Database
             array_push($data, $row);
         }
         return $data;
+    }
+    public function pagination($table, $limit, $offset){
+        $page = 1;
+        $sql = 'select id from ${table}';
+        $data = $this->_query($sql);
+        $total_record = mysqli_num_rows($data);
+        $total_page=ceil($total_record/$limit);
     }
     public function find($table, $id){
         $sql = "SELECT * FROM ${table} WHERE id = '${id}' LIMIT 1";
@@ -56,11 +67,9 @@ class BaseModel extends Database
     public function delete($table, $id){
         $sql = "delete from ${table} where id = ${id}";
         if($this->_query($sql)){
-            echo 'Xóa thành công';
             return;
         }
         else{
-            echo 'Xóa thất bại';
             return;
         }
         //return $this->_query($sql);
