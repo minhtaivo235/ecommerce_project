@@ -7,22 +7,23 @@ class BaseModel extends Database
     {
         $this->connect = $this->connect();
     }
-    public function all($table, $select = ['*'], $orderBy = [] , $limit = '', $offset = ''){
+    public function all($table, $select = ['*'], $orderBy = [] , $start = '', $limit = ''){
         $column = implode(',', $select);
         $columnOrder = implode(' ', $orderBy);
-        if($columnOrder !== '' && $limit !== ''  && $offset !== ''){
-            $sql = "Select ${column} from {$table} order by ${columnOrder} LIMIT ${limit},${offset} ";
+        if($columnOrder !== '' && ($start !== '' || $start == 0) && $limit !== ''){
+            $sql = "Select ${column} from ${table} order by ${columnOrder} LIMIT ${start},${limit} ";
 
-        }else if ($columnOrder !== '' && $limit == ''  && $offset == ''){
-            $sql = "Select ${column} from {$table} order by ${columnOrder}";
+        }else if ($columnOrder !== '' && $start == '' && $limit == ''){
+            $sql = "Select ${column} from ${table} order by ${columnOrder}";
 
-        } else if ($columnOrder == '' && $limit !== ''  && $offset !== ''){
-            $sql = "Select ${column} from {$table} LIMIT ${limit},${offset} ";
+        } else if ($columnOrder == '' && ($start !== '' || $start == 0) && $limit !== ''){
+            $sql = "Select ${column} from ${table} LIMIT ${start},${limit}";
 
         } else {
-            $sql = "Select ${column} from {$table}";
+            $sql = "Select ${column} from ${table}";
 
         }
+
         $query = $this->_query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($query)){
@@ -30,12 +31,32 @@ class BaseModel extends Database
         }
         return $data;
     }
-    public function pagination($table, $limit, $offset){
-        $page = 1;
-        $sql = 'select id from ${table}';
-        $data = $this->_query($sql);
-        $total_record = mysqli_num_rows($data);
-        $total_page=ceil($total_record/$limit);
+    public function pagination($table, $limit, $page = 1){
+        $page = 1; // khoi tao trang bat dau
+        $sql = "select id from ${table}";
+
+        $record = $this->_query($sql);
+
+        $total_record = mysqli_num_rows($record); // tong so bang co trong table
+
+        $total_page=ceil($total_record/$limit); // tong so trang se chia
+        // kiem tra xem trang co vuot gioi han khong
+        if(isset($_GET['page'])){ // kiem tra co ton tai bien page k
+            $page = $_GET['page']; // neu ton tai thi page hien tai la $_GET['page']
+        }
+        if($page < 1){ // neu bien page nho hon 1 thi gan page bang 1
+            $page = 1;
+        }
+        if($page > $total_page) {
+            $page = $total_page; // neu page lon hon tong so trang thi gan bang trang cuoi cung
+        }
+        // tinh vi tri se bat dau lay
+        $start = ($page - 1) * $limit;
+        $data = [];
+        $data['total_page'] = $total_page;
+        $data['page'] = $page;
+        $data['start'] = $start;
+        return $data;
     }
     public function find($table, $id){
         $sql = "SELECT * FROM ${table} WHERE id = '${id}' LIMIT 1";

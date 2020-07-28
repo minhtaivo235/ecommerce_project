@@ -34,8 +34,21 @@ class CategoryController extends BaseController
     }
 
     public function get_list(){
-        $categories = $this->categoryModel->getAll(['*'],[],'0','3');
-        return $this->view('backend.categories.show',['categories' => $categories]);
+        $totalItem_page = 3;
+        if (isset($_GET['page'])){
+            $paging = $this->categoryModel->paging($totalItem_page,$_GET['page']);
+        }
+        else {
+            $paging = $this->categoryModel->paging($totalItem_page);
+        }
+//        echo '<pre>';
+//        print_r($paging);
+//        die();
+        $startPage = $paging['start'];
+
+
+        $categories = $this->categoryModel->getAll(['*'],[],$startPage,$totalItem_page);
+        return $this->view('backend.categories.show',['categories' => $categories, 'pagination' => $paging]);
     }
 
     public function create(){

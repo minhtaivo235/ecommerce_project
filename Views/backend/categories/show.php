@@ -72,10 +72,10 @@ require_once 'Views/backend/partitions/header.php';
                     <div class="col-sm-7 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">
                             <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-                            <li><a href="" class="active">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href="">4</a></li>
+                            <?php for ($i = 1; $i <= $pagination['total_page']; $i++) { ?>
+                            <li><a href="admin.php?controller=category&action=get_list&page=<?php echo $i ?>" class="<?php if($pagination['page'] == $i) echo "class='active'" ?>"><?php echo $i ?></a></li>
+
+                            <?php } ?>
                             <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
                         </ul>
                     </div>
