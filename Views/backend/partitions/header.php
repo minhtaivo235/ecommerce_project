@@ -264,7 +264,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <span>Category</span>
                         </a>
                         <ul class="sub">
-                            <li><a href="admin.php?controller=category&action=get_list">List Category</a></li>
+                            <li><a href="admin.php?controller=category&action=get_list&page=1">List Category</a></li>
                             <li><a href="admin.php?controller=category&action=create">Create Category</a></li>
                         </ul>
                     </li>

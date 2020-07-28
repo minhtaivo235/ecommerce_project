@@ -18,7 +18,8 @@ class UserModel extends BaseModel{
     }
     public function check_login($mail, $password){
         $sql = "SELECT * FROM USERS WHERE email = '${mail}' && password = ${password}";
-        $data = $this->_query($sql);
+        //$data = $this->_query($sql);
+        $data = mysqli_query($this->connect,$sql);
         return mysqli_fetch_assoc($data);
     }
 }

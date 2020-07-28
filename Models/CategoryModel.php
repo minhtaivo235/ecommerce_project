@@ -6,8 +6,8 @@ class CategoryModel extends BaseModel
     public function getAll( $select = ['*'], $orderBy = [] , $start = '', $limit = ''){
         return $this->all(self::TABLE_NAME, $select, $orderBy, $start, $limit);
     }
-    public function paging($limit, $page = 1){
-        return $this->pagination(self::TABLE_NAME, $limit, $page);
+    public function paging($limit, $page = 1, $range = 2){
+        return $this->pagination(self::TABLE_NAME, $limit, $page, $range);
     }
     public function findById($id){
         return $this->find(self::TABLE_NAME,$id);

@@ -70,14 +70,26 @@ require_once 'Views/backend/partitions/header.php';
                         <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
                     </div>
                     <div class="col-sm-7 text-right text-center-xs">
+                        <?php if ($pagination['total_record'] > $pagination['limit']){ ?>
                         <ul class="pagination pagination-sm m-t-none m-b-none">
-                            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-                            <?php for ($i = 1; $i <= $pagination['total_page']; $i++) { ?>
-                            <li><a href="admin.php?controller=category&action=get_list&page=<?php echo $i ?>" class="<?php if($pagination['page'] == $i) echo "class='active'" ?>"><?php echo $i ?></a></li>
-
+                            <?php if($pagination['page'] > 1){ ?>
+                                <li><a href="admin.php?controller=category&action=get_list&page=1"><i class="fa fa-angle-double-left" style="font-weight: bold;font-size: 15px;"></i></a></li>
+                                <li><a href="admin.php?controller=category&action=get_list&page=<?php echo $pagination['page']-1 ?>"><i class="fa fa-chevron-left"></i></a></li>
                             <?php } ?>
-                            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
+                            <?php for ($i = $pagination['min']; $i <= $pagination['max']; $i++) { ?>
+                                <?php if ($pagination['page'] == $i) { ?>
+                                    <li><span style="z-index: 3;color: #23527c;background-color: #eee;border-color: #ddd;"><?php echo $i ?></span></li>
+                                <?php } else {?>
+                                    <li><a href="admin.php?controller=category&action=get_list&page=<?php echo $i ?>"><?php echo $i ?></a></li>
+                                <?php } ?>
+                            <?php } ?>
+                            <?php if($pagination['page'] < $pagination['total_page']){ ?>
+                                <li><a href="admin.php?controller=category&action=get_list&page=<?php echo $pagination['page']+1 ?>"><i class="fa fa-chevron-right" ></i></a></li>
+                                <li><a href="admin.php?controller=category&action=get_list&page=<?php echo $pagination['total_page'] ?>"><i class="fa fa-angle-double-right" style="font-weight: bold;font-size: 15px;"></i></a></li>
+                            <?php } ?>
+
                         </ul>
+                        <?php } ?>
                     </div>
                 </div>
             </footer>
