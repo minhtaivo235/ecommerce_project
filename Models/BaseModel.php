@@ -33,8 +33,7 @@ class BaseModel extends Database
     }
     public function pagination($table, $limit, $page = 1, $range = 2){
         // khoi tao gia tri min, max
-        $min = 0;
-        $max = 0;
+
 
         $sql = "select id from ${table}";
         $record = $this->_query($sql);
@@ -63,8 +62,8 @@ class BaseModel extends Database
             $max = $total_page;
         }
         else { // neu tong so trang lon hon so button hien thi ra man hinh
-            $min = $page - $middle ;
-            $max = $page + $middle  ;
+            $min = $page - $middle ; // so trang nho nhat
+            $max = $page + $middle  ; // so trang lon nhat
 
             // neu min < 1 thi gan min = 1 va max = range
             if($min < 1){

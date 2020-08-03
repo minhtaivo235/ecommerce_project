@@ -15,14 +15,15 @@ class BaseController
     protected function loadModel($modelPath){
         return require (self::MODEL_FOLDER_NAME . '/' . $modelPath .  '.php');
     }
-    protected function AuthLogin(){
+    protected function AuthLogin($permission = []){
         if($_SESSION['user_id']){
-            if($_SESSION['user_role'] == 1){
-                return true;
+            foreach ($permission as $key => $value){
+                if($_SESSION['role'] == $value){
+                    return true;
+                }
             }
-        }
-        else {
             return false;
         }
+
     }
 }
