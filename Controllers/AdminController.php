@@ -33,9 +33,9 @@ class AdminController extends BaseController {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['role'] = $role_name;
-        if(($role_name == 'admin' || $role_name == 'manager') && $user['status'] == 'da-kich-hoat')
+        if(($role_name == 'admin' || $role_name == 'manager') && $user['status'] == 'active')
             return header('Location: admin');
-        if ($user['role_id'] == 2 && $user['status'] == 'da-kich-hoat')
+        if ($user['role_id'] == 2 && $user['status'] == 'active')
             return header('Location: index.php');
         echo 'Đăng nhập thất bại';
         return ;

@@ -125,6 +125,16 @@ class BaseModel extends Database
         }
         //return $this->_query($sql);
     }
+
+    public function activeStatus($table, $id){
+        $sql = "Update ${table} set status = 'active' where id = ${id}";
+        return $this->_query($sql);
+    }
+    public function inActiveStatus($table, $id){
+        $sql = "Update ${table} set status = 'inactive' where id = ${id}";
+        return $this->_query($sql);
+    }
+
     private function _query($sql){
         return mysqli_query($this->connect,$sql);
     }

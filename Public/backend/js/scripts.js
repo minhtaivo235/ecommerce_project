@@ -116,7 +116,7 @@
                             '0:': $spdata.spotColor
                         };
                         $(this).sparkline($(this).data("compositeData"), $spdata);
-                    };
+                    }
                 });
             };
 

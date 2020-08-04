@@ -152,9 +152,8 @@
 				$elem.animate( attr, duration, settings.easing, callback && function() {
 					callback.call(this, targ, settings);
 				});
-			};
-
-		}).end();
+            }
+        }).end();
 	};
 	
 	// Max scrolling position, works on quirks mode
@@ -176,8 +175,7 @@
 
 	function both( val ) {
 		return typeof val == 'object' ? val : { top:val, left:val };
-	};
-
+    }
     // AMD requirement
     return $scrollTo;
 }));

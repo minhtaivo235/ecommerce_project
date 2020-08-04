@@ -259,7 +259,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
                     <li class="sub-menu">
-                        <a href="javascript:;">
+                        <a href="javascript:">
                             <i class="fa fa-book"></i>
                             <span>Category</span>
                         </a>
@@ -270,7 +270,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </li>
                     <?php if($_SESSION['role'] == 'admin'){ ?>
                     <li class="sub-menu">
-                        <a href="javascript:;">
+                        <a href="javascript:">
                             <i class="fa fa-book"></i>
                             <span>Role</span>
                         </a>
@@ -282,17 +282,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </li>
                     <?php } ?>
 
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-book"></i>
-                                <span>User</span>
-                            </a>
+                    <li class="sub-menu">
+                        <a href="javascript:">
+                            <i class="fa fa-book"></i>
+                            <span>User</span>
+                        </a>
 
-                            <ul class="sub">
-                                <li><a href="admin.php?controller=user&action=get_list&page=1">List User</a></li>
-                                <li><a href="admin.php?controller=user&action=create">Create User</a></li>
-                            </ul>
-                        </li>
+                        <ul class="sub">
+                            <li><a href="admin.php?controller=user&action=get_list&page=1">List User</a></li>
+                            <li><a href="admin.php?controller=user&action=create">Create User</a></li>
+                        </ul>
+                    </li>
 
                 </ul>            </div>
             <!-- sidebar menu end-->
